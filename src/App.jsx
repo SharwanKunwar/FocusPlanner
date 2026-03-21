@@ -16,7 +16,7 @@ function App() {
   const [isOpen, setIsOpen] = useState(true); // Sidebar open/close
 
   return (
-    <div className='bg-linear-to-br to-slate-800 from-green-400 w-screen h-screen flex justify-center items-center'>
+    <div className='bg-linear-to-br to-slate-800 from-green-600 w-screen h-screen flex justify-center items-center'>
       <div className='bg-white/30 backdrop-blur-sm w-[98%] h-[95%] rounded-lg shadow border border-white/50 flex'>
 
         {/* Left Sidebar */}

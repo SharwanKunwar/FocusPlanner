@@ -78,7 +78,7 @@ export function SparklesPreview() {
               
 
               <div className="w-[90%] h-[65%] rounded-md flex justify-end items-end flex-col pb-3 pr-3">
-                <motion.div layout className="shadow-sm flex items-center gap-5 rounded">
+                <motion.div layout className="shadow-sm flex items-center gap-5 rounded-md">
                   {/* Add Favorite Button */}
                   <Button size="large" type="primary" onClick={() => setIsFavModalOpen(true)}>
                     <FaGlobe />
@@ -106,7 +106,7 @@ export function SparklesPreview() {
         />
 
         {/* Radial Gradient to prevent sharp edges */}
-        <div className="absolute inset-0 w-full h-full bg-indigo-400 [mask-image:radial-gradient(1250px_350px_at_left,transparent_30%,white)]"></div>
+        <div className="absolute inset-0 w-full h-full bg-indigo-900 [mask-image:radial-gradient(1250px_350px_at_left,transparent_30%,white)]"></div>
       </div>
 
       {/* Favorite Site Modal */}

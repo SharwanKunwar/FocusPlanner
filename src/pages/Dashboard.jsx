@@ -61,43 +61,45 @@ function Dashboard() {
           </section>
         </div>
 
-        {/* HEATMAP */}
+       <section className="flex flex-col justify-evenly pb-5 h-full">
+         {/* HEATMAP */}
         <div className="py-5 px-3">
           <GithubHeatmap username={safeUsername} />
         </div>
 
         {/* STATS GRID */}
-        <div className="grid grid-cols-4 gap-5 h-full p-5">
+        <div className="flex justify-between items-center  px-5 gap-5">
 
-          <div className="bg-linear-to-bl from-white/40 to-slate-400 rounded-md p-4 flex flex-col justify-center">
+          <div className="bg-linear-to-bl from-indigo-400 to-pink-400 rounded-md p-4 flex flex-col justify-center h-[90px] w-full">
             <p className="text-sm">Repos</p>
             <h2 className="text-2xl font-bold">
               {githubData ? githubData.public_repos : "Loading..."}
             </h2>
           </div>
 
-          <div className="bg-linear-to-bl from-white/40 to-slate-400 rounded-md p-4 flex flex-col justify-center">
+          <div className="bg-linear-to-bl from-indigo-400 to-pink-400 rounded-md p-4 flex flex-col justify-center h-[90px] w-full">
             <p className="text-sm">Followers</p>
             <h2 className="text-2xl font-bold">
               {githubData ? githubData.followers : "Loading..."}
             </h2>
           </div>
 
-          <div className="bg-linear-to-bl from-white/40 to-slate-400 rounded-md p-4 flex flex-col justify-center">
+          <div className="bg-linear-to-bl from-indigo-400 to-pink-400 rounded-md p-4 flex flex-col justify-center h-[90px] w-full">
             <p className="text-sm">Following</p>
             <h2 className="text-2xl font-bold">
               {githubData ? githubData.following : "Loading..."}
             </h2>
           </div>
 
-          <div className="bg-linear-to-bl from-white/40 to-slate-400 rounded-md p-4 flex flex-col justify-center">
+          <div className="bg-linear-to-bl from-indigo-400 to-pink-400 px-5 rounded-md p-4 flex flex-col justify-center h-[90px] w-full">
             <p className="text-sm">Current User</p>
-            <h2 className="text-xl font-bold">
+            <h2 className="text-xl text-shadow-sm font-bold">
               {safeUsername}
             </h2>
           </div>
 
         </div>
+       </section>
 
       </div>
 
