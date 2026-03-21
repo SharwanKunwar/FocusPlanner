@@ -13,10 +13,10 @@ const navItems = [
 
 function App() {
   const [active, setActive] = useState('');
-  const [isOpen, setIsOpen] = useState(false); // Sidebar open/close
+  const [isOpen, setIsOpen] = useState(true); // Sidebar open/close
 
   return (
-    <div className='bg-linear-to-br from-green-400 to-indigo-400 via-pink-400 w-screen h-screen flex justify-center items-center'>
+    <div className='bg-linear-to-br to-slate-800 from-green-400 w-screen h-screen flex justify-center items-center'>
       <div className='bg-white/30 backdrop-blur-sm w-[98%] h-[95%] rounded-lg shadow border border-white/50 flex'>
 
         {/* Left Sidebar */}
@@ -32,9 +32,9 @@ function App() {
           <div className={`flex items-center gap-2 px-3.5 p-3 transition-all duration-300 border-b border-white/50`}>
             
               <img
-              src="vite.svg"
+              src="icons/caodaism.gif"
               alt="logo"
-              className={`bg-indigo-700 p-2 rounded shadow transition-all duration-300
+              className={`bg-indigo-700/30 p-0.5 rounded-md shadow transition-all duration-300
                 ${isOpen ? 'w-12 h-12' : 'w-12 h-12'}
               `}
             />

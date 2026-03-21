@@ -43,11 +43,11 @@ function Navbar({ onPriorityChange, onDateChange }) {
       </div>
 
       {/* Other buttons: DatePicker, Add Task, Delete All, Profile */}
-      <div className='w-[70%] h-full px-5 flex justify-end items-center gap-5'>
+      <div className='w-[70%] h-full px-5 flex justify-end items-center gap-5 text-white'>
         
         <DatePicker
           size="large"
-          className="w-34 rounded-xl shadow!"
+          className="w-34 rounded-xl shadow! "
           value={date}
           onChange={(value) => {
             setDate(value);
@@ -60,14 +60,14 @@ function Navbar({ onPriorityChange, onDateChange }) {
           type='primary'
           onClick={() => setOpen(true)}
           size="large"
-          className="px-5! flex items-center gap-2 shadow!"
+          className="px-5! flex items-center gap-2 shadow! bg-linear-to-bl! from-indigo-400! to-pink-400! text-white!"
         >
           <FiPlus /> Add Task
         </Button>
 
         <Button
           size="large"
-          className="px-5! flex items-center gap-2 shadow!"
+          className="px-5! flex items-center gap-2 shadow! bg-linear-to-bl! from-indigo-400! to-pink-400! text-white!"
           onClick={() => {
             if (window.confirm("Do you want to delete all your existing tasks?")) {
               deleteAllTasks();
@@ -79,7 +79,7 @@ function Navbar({ onPriorityChange, onDateChange }) {
 
         <div className='bg-linear-to-br from-indigo-400 to-pink-400 via-orange shadow p-1 rounded-full w-[50px] h-[50px]'>
           <img
-            src="profile.jpg"
+            src="icons/taoism.gif"
             alt="profile"
             className='w-full h-full object-cover rounded-full shadow'
           />

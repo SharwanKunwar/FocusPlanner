@@ -1,88 +1,106 @@
 import React from "react";
 import { SparklesPreview } from "../components/ui/SparklesPreview";
-import { Card } from "antd";
 import useTaskStore from "../data/taskStore";
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import GithubHeatmap from "../components/GithubHeatmap";
+import useGithubStore from "../data/githubStore";
+import { Button } from "antd";
 
 function Dashboard() {
   const tasks = useTaskStore((state) => state.tasks);
 
-  const taskStats = React.useMemo(() => {
-    const now = new Date();
+  // Zustand username
+  const { username, setUsername } = useGithubStore();
+  const safeUsername = username || "SharwanKunwar";
 
-    let completed = 0;
-    let pending = 0;
-    let inProgress = 0;
-    let overdue = 0;
+  const [input, setInput] = React.useState(safeUsername);
 
-    tasks.forEach((task) => {
-      const createdDate = new Date(task.createdAt);
-      const diffDays = (now - createdDate) / (1000 * 60 * 60 * 24);
+  // GitHub data
+  const [githubData, setGithubData] = React.useState(null);
 
-      if (task.status === "completed") completed++;
-      if (task.status === "pending") pending++;
-      if (task.status === "inprogress") inProgress++;
-      if (diffDays > 2 && task.status !== "completed") overdue++;
-    });
-
-    return { completed, pending, inProgress, overdue };
-  }, [tasks]);
-
-  const { completed, pending, inProgress, overdue } = taskStats;
-
-  const data = [
-    { name: "Completed", count: completed },
-    { name: "Pending", count: pending },
-    { name: "In Progress", count: inProgress },
-    { name: "Overdue", count: overdue },
-  ];
+  React.useEffect(() => {
+    fetch(`https://api.github.com/users/${safeUsername}`)
+      .then((res) => res.json())
+      .then((res) => setGithubData(res))
+      .catch((err) => console.log(err));
+  }, [safeUsername]);
 
   return (
     <div className="w-full h-full p-5 flex flex-col gap-5">
+
+      {/* HEADER */}
       <div className="h-[250px]">
         <SparklesPreview />
       </div>
 
-      <div className="h-full flex flex-col gap-5">
-        <div className="w-full h-[100%] grid grid-cols-3 gap-5">
-          {/* LEFT CARD */}
-          <Card className="bg-gray-50 col-span-1 rounded shadow-sm p-5">
-            <h1 className="text-lg font-semibold mb-4">Task Details</h1>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-green-50 p-4 rounded-md shadow-sm">
-                <p className="text-sm text-green-600">Completed</p>
-                <h2 className="text-2xl font-bold text-green-700">{completed}</h2>
-              </div>
-              <div className="bg-yellow-50 p-4 rounded-md shadow-sm">
-                <p className="text-sm text-yellow-600">Pending</p>
-                <h2 className="text-2xl font-bold text-yellow-700">{pending}</h2>
-              </div>
-              <div className="bg-blue-50 p-4 rounded-md shadow-sm">
-                <p className="text-sm text-blue-600">In Progress</p>
-                <h2 className="text-2xl font-bold text-blue-700">{inProgress}</h2>
-              </div>
-              <div className="bg-red-50 p-4 rounded-md shadow-sm">
-                <p className="text-sm text-red-600">Overdue (&gt; 2 days)</p>
-                <h2 className="text-2xl font-bold text-red-700">{overdue}</h2>
-              </div>
-            </div>
-          </Card>
+      {/* GITHUB SECTION */}
+      <div className="h-full border border-white/30 rounded-md flex flex-col">
 
-          {/* RIGHT CARD - Task Graph */}
-          <Card className="bg-gray-50 col-span-2 rounded shadow-sm p-5">
-            <h1 className="text-lg font-semibold mb-4">Task Visualization</h1>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-                <XAxis dataKey="name" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="count" fill="#1890ff" />
-              </BarChart>
-            </ResponsiveContainer>
-          </Card>
+        {/* HEADER BAR */}
+        <div className="text-white text-sm p-5 border-b border-white/20 flex justify-between items-center">
+          <p>GitHub Contributions</p>
+
+          <section className="flex items-center gap-2">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="p-1.5 rounded text-white text-shadow-sm text-sm border border-white/30 focus:bg-linear-to-br from-slate-400 to-pink-400 focus:outline-none"
+              placeholder="Enter username"
+            />
+
+            <Button
+              size="middle"
+              onClick={() => {
+                if (input.trim() !== "") {
+                  setUsername(input.trim());
+                }
+              }}
+              className="bg-linear-to-bl! from-indigo-400! to-pink-400 px-5!   text-white!"
+            >
+              Save
+            </Button>
+          </section>
         </div>
+
+        {/* HEATMAP */}
+        <div className="py-5 px-3">
+          <GithubHeatmap username={safeUsername} />
+        </div>
+
+        {/* STATS GRID */}
+        <div className="grid grid-cols-4 gap-5 h-full p-5">
+
+          <div className="bg-linear-to-bl from-white/40 to-slate-400 rounded-md p-4 flex flex-col justify-center">
+            <p className="text-sm">Repos</p>
+            <h2 className="text-2xl font-bold">
+              {githubData ? githubData.public_repos : "Loading..."}
+            </h2>
+          </div>
+
+          <div className="bg-linear-to-bl from-white/40 to-slate-400 rounded-md p-4 flex flex-col justify-center">
+            <p className="text-sm">Followers</p>
+            <h2 className="text-2xl font-bold">
+              {githubData ? githubData.followers : "Loading..."}
+            </h2>
+          </div>
+
+          <div className="bg-linear-to-bl from-white/40 to-slate-400 rounded-md p-4 flex flex-col justify-center">
+            <p className="text-sm">Following</p>
+            <h2 className="text-2xl font-bold">
+              {githubData ? githubData.following : "Loading..."}
+            </h2>
+          </div>
+
+          <div className="bg-linear-to-bl from-white/40 to-slate-400 rounded-md p-4 flex flex-col justify-center">
+            <p className="text-sm">Current User</p>
+            <h2 className="text-xl font-bold">
+              {safeUsername}
+            </h2>
+          </div>
+
+        </div>
+
       </div>
+
     </div>
   );
 }
