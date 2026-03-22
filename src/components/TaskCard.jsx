@@ -25,6 +25,7 @@ function TaskCard({ task }) {
 
   const formattedDate = new Date(task.createdAt).toLocaleString();
   const truncatedDescription = task.description.length > 150 ? task.description.slice(0, 150) + "..." : task.description;
+  const AllTimeMax = task.description.length > 2000 ? task.description.slice(0, 2000) + "..." : task.description;
   const MaxDescription = task.description.length > 300 ? task.description.slice(0, 300) + "..." : task.description;
 
   const handleStartWork = () => {
@@ -48,7 +49,7 @@ function TaskCard({ task }) {
   return (
     <>
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
@@ -189,7 +190,7 @@ function TaskCard({ task }) {
             <div className='bg-gray-50 rounded-md shadow-sm p-5'>
               <h1 className='text-lg font-medium'> {task.title} </h1>
           <small className='text-neutral-400'> CreatedAt: {formattedDate} </small>
-          <p className='text-gray-500 mt-2 text-shadow-sm min-h-[90px] '> {truncatedDescription} </p>
+          <p className='text-gray-500 mt-2 text-shadow-sm min-h-[90px] mb-3'> {AllTimeMax} </p>
 
           <section className='flex justify-start items-center gap-3 '>
             <Tag color={task.status === "inprogress" ? "blue" : "orange"} className='mt-1!'> {task.status}</Tag>
