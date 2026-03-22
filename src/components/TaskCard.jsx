@@ -140,15 +140,24 @@ function TaskCard({ task }) {
               />
 
               <div className='bg-gray-50/30 backdrop-blur-[4px] shadow-xl border border-black/10 absolute bottom-0 left-0 w-full h-[40vh] z-20 rounded-md p-5'> 
-                <div>
+                <div className='h-[25vh]'>
                   <h1 className='text-lg font-medium text-shadow-sm'>{task.title}</h1>
                   <p className='text-neutral-400'>CreateAt: {task.createdAt}</p>
-                  <p className='mt-3 text-shadow-sm'>{MaxDescription}</p>
+                  <p className='mt-3 text-shadow-sm h-[90px]'>{MaxDescription}</p>
                   <div className='mt-5 flex justify-between items-center gap-5'>
                     <Tag color={task.status === "inprogress" ? "blue" : "orange"}> {task.status}</Tag>
-                    <Button className='px-5! border-red-400/30! shadow! tracking-wide! border!' size='medium'>
+                    <section className='flex gap-3'>
+                      <Button className='px-5! border-red-400/30! shadow! tracking-wide! border!' size='medium'>
                       <span className='text-neutral-700'>Priority:</span> {task.priority}
                     </Button>
+                    <Button
+                      onClick={() => window.open("https://chat.openai.com/", "_blank")}
+                      className='border-red-400/30 shadow tracking-wide border'
+                      size='medium'
+                    >
+                      <p className='text-indigo-400 font-medium text-shadow-sm'>AI</p>
+                    </Button>
+                    </section>
                   </div>
                 </div>
 
