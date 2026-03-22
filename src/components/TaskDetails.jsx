@@ -5,7 +5,7 @@ function TaskDetails() {
   const { selectedTask } = useTaskStore();
 
   return (
-    <div className="bg-white h-full w-full rounded-2xl shadow-lg p-6 overflow-y-auto">
+    <div className="bg-red-400 h-full w-full rounded-2xl shadow-lg p-6 overflow-y-auto">
 
       {!selectedTask ? (
         <div className="flex items-center justify-center h-full text-gray-400 text-lg">

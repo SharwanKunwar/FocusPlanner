@@ -68,7 +68,7 @@ function IntroductionPage() {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setQuoteIndex((prev) => (prev + 1) % Quote.length);
-    }, 6000); // change every 6 seconds
+    }, 50000); // change every 50000 ms
 
     return () => clearInterval(interval);
   }, []);

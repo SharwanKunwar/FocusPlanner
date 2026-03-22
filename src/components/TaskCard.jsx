@@ -6,6 +6,7 @@ import Watch from './Watch';
 import TimeTracker from './TimeTracker';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import TextArea from 'antd/es/input/TextArea';
+import { motion } from 'framer-motion';
 
 function TaskCard({ task }) {
 
@@ -20,6 +21,7 @@ function TaskCard({ task }) {
 
   const [isModalOpen, setIsModalOpen] = useState(false); // for Study Mode modal
   const [currentTimerValue, setCurrentTimerValue] = useState(0); // store timer value from TimeTracker
+
 
   const formattedDate = new Date(task.createdAt).toLocaleString();
   const truncatedDescription = task.description.length > 150 ? task.description.slice(0, 150) + "..." : task.description;
@@ -45,15 +47,21 @@ function TaskCard({ task }) {
 
   return (
     <>
-      <Badge.Ribbon text={task.priority} color="red">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      
+        
         <Card className='shadow-sm rounded-lg border! border-black/40!' hoverable>
-
           <h1 className='text-lg font-medium'> {task.title} </h1>
           <small className='text-neutral-400'> CreatedAt: {formattedDate} </small>
           <p className='text-gray-500 mt-2 text-shadow-sm min-h-[90px]'> {truncatedDescription} </p>
 
           <section className='flex justify-start items-center gap-3'>
             <Tag color={task.status === "inprogress" ? "blue" : "orange"} className='mt-1!'> {task.status}</Tag>
+            {/* <Tag color={task.status === "inprogress" ? "blue" : "orange"} className='mt-1!'> {task.priority}</Tag> */}
             {task.status == "completed" && (
               <Tag color={task.status === "inprogress" ? "blue" : "orange"} className='mt-1!'> <p>Time Spent: {convertMillisecondsToHMS(task.duration)}</p> </Tag>
             )}
@@ -74,9 +82,10 @@ function TaskCard({ task }) {
               <BsFillTrash3Fill />
             </Button>
           </div>
-
         </Card>
-      </Badge.Ribbon>
+      
+      </motion.div>
+          
 
       {/* Study Mode Modal */}
       <Modal

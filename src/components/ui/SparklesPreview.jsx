@@ -6,6 +6,7 @@ import { useFavStore } from "../../data/useFavStore";
 import { Input, Form, Button, Modal, Tag, Progress } from "antd";
 import taskStore from "../../data/taskStore";
 import { ResponsiveContainer, BarChart, XAxis, YAxis, Tooltip, Legend, Bar } from "recharts";
+import useGithubStore from "../../data/githubStore";
 
 // 🔹 Memoized Favorite Item
 const FavoriteItem = React.memo(({ site, removeFavorite }) => (
@@ -49,6 +50,10 @@ export function SparklesPreview() {
 
   const tasks = taskStore((state) => state.tasks); // Get all tasks
 
+  // Zustand username
+  const { username, setUsername } = useGithubStore();
+  const safeUsername = username || "SharwanKunwar";
+
   return (
     <div className="h-full w-full bg-indigo-400 flex flex-col items-center justify-center overflow-hidden rounded-md">
       <div className="w-full h-full relative">
@@ -58,7 +63,7 @@ export function SparklesPreview() {
             {/* left div */}
             <div className="w-[50%] h-full flex flex-col justify-center gap-1">
               <h1 className="text-white font-bold text-3xl text-shadow-sm">
-                Welcome back, Sharwan jung kunwar
+                Welcome back, {safeUsername}
               </h1>
               <p className="w-[60%] text-neutral-200 text-shadow-sm">
                 You've completed 65% of your semester goals. You're ahead of 82% of your class!
