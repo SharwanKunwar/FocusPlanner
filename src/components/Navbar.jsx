@@ -22,10 +22,10 @@ function Navbar({ onPriorityChange, onDateChange }) {
   
 
   return (
-    <div className=' bg-white/40 h-18 border-b w-full border-white/50 backdrop-blur-2xl flex gap-1 z-50 rounded-tr-md'>
+    <div className='bg-white/20 backdrop-blur-lg h-20 w-full flex justify-between items-center px-6 md:px-8 border-b border-white/50 shadow-sm'>
       
       {/* Priority selector */}
-      <div className='w-[30%] h-full px-5 flex justify-start items-center'>
+      <div className='w-[30%] h-full flex justify-start items-center'>
         <div className='w-50 h-[60%]'>
           <Select
             placeholder="Choose Priority"
@@ -43,11 +43,11 @@ function Navbar({ onPriorityChange, onDateChange }) {
       </div>
 
       {/* Other buttons: DatePicker, Add Task, Delete All, Profile */}
-      <div className='w-[70%] h-full px-5 flex justify-end items-center gap-5 text-white'>
+      <div className='flex-1 h-full flex justify-end items-center gap-4 text-slate-700'>
         
         <DatePicker
           size="large"
-          className="w-34 rounded-xl shadow! "
+          className="w-40 rounded-xl bg-white/40 backdrop-blur-md border border-white/50 shadow-sm text-slate-700 hover:bg-white/50"
           value={date}
           onChange={(value) => {
             setDate(value);
@@ -57,17 +57,16 @@ function Navbar({ onPriorityChange, onDateChange }) {
         />
 
         <Button
-          type='primary'
           onClick={() => setOpen(true)}
           size="large"
-          className="px-5! flex items-center gap-2 shadow! bg-linear-to-bl! from-indigo-400! to-pink-400! text-white!"
+          className="px-5! flex items-center gap-2 rounded-xl bg-white/40 backdrop-blur-md text-slate-700 shadow-sm border border-white/50 hover:bg-white/60 hover:text-slate-900 font-medium"
         >
           <FiPlus /> Add Task
         </Button>
 
         <Button
           size="large"
-          className="px-5! flex items-center gap-2 shadow! bg-linear-to-bl! from-indigo-400! to-pink-400! text-white!"
+          className="px-5! flex items-center gap-2 rounded-xl bg-white/40 backdrop-blur-md text-red-500 shadow-sm border border-white/50 hover:bg-white/60 hover:text-red-600 font-medium"
           onClick={() => {
             if (window.confirm("Do you want to delete all your existing tasks?")) {
               deleteAllTasks();
@@ -77,11 +76,11 @@ function Navbar({ onPriorityChange, onDateChange }) {
           <FiTrash2 /> Delete All
         </Button>
 
-        <div className='bg-linear-to-br from-indigo-400 to-pink-400 via-orange shadow p-1 rounded-full w-[50px] h-[50px]'>
+        <div className='bg-white/40 backdrop-blur-md border border-white/50 shadow-sm p-1 rounded-full w-12 h-12 ml-2 flex justify-center items-center'>
           <img
             src="icons/taoism.gif"
             alt="profile"
-            className='w-full h-full object-cover rounded-full shadow'
+            className='w-full h-full object-cover rounded-full shadow-inner'
           />
         </div>
       </div>

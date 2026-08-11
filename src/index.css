@@ -26,3 +26,24 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);   /* optional shadow */
   color: white;                                 /* text color */
 }
+
+/* Neumorphic utilities */
+.neu-flat {
+  background: #e4ebf5;
+  box-shadow: 6px 6px 12px #c9d1d9, -6px -6px 12px #ffffff;
+}
+
+.neu-pressed {
+  background: #e4ebf5;
+  box-shadow: inset 4px 4px 8px #c9d1d9, inset -4px -4px 8px #ffffff;
+}
+
+.neu-card {
+  background: #f0f4f8;
+  box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+}
+
+.neu-card-flat {
+  background: #e4ebf5;
+  box-shadow: 4px 4px 10px #c9d1d9, -4px -4px 10px #ffffff;
+}

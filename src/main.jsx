@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import IntroductionPage from './pages/IntroductionPage.jsx'
 import ChallangePage from "./pages/ChallangePage.jsx"
+import ProfilePage from './pages/ProfilePage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path:"challangePage",
         element: <ChallangePage/>
+      },
+      {
+        path:"profile",
+        element: <ProfilePage/>
       }
     ]
   }

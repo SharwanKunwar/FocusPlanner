@@ -20,11 +20,11 @@ function TaskPage() {
 
   return (
     <>
-      <div className='absolute top-0 left-0 w-full rounded-tr-md z-50 bg-green-400/30'>
+      <div className='sticky top-0 w-full z-50'>
         <Navbar onPriorityChange={setFilterPriority} onDateChange={setFilterDate} />
       </div>
 
-      <div className='w-full grid grid-cols-3 gap-4 p-5'>
+      <div className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 md:p-8 mt-4'>
         {filteredTasks.length === 0 ? (
           <div className='absolute w-full left-0 h-full top-0 flex justify-center items-center'>
             <div className=' w-[90%] h-[60%] flex justify-center items-center'>
@@ -44,10 +44,10 @@ function TaskPage() {
                 filterPriority?.value === task.priority
                   ? filterPriority.color
                   : task.priority === "high"
-                  ? "red"
-                  : task.priority === "medium"
-                  ? "orange"
-                  : "green"
+                    ? "red"
+                    : task.priority === "medium"
+                      ? "orange"
+                      : "green"
               }
             >
               <TaskCard task={task} />
