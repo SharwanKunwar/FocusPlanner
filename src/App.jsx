@@ -63,7 +63,7 @@ function App() {
                   {/* Icon fixed */}
 
                   <div className='flex justify-center items-center shrink-0'>
-                    <span className='text-xl'>{item.icon}</span>
+                    <span className='text-lg px-2'>{item.icon}</span>
                   </div>
 
                   {/* Label smooth animation */}
@@ -85,7 +85,19 @@ function App() {
           <div className='flex justify-center mb-6 absolute bottom-0 left-0 w-full'>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className='bg-[#e4ebf5] p-3 rounded-xl text-slate-500 hover:text-slate-800 shadow-[4px_4px_10px_#c9d1d9,-4px_-4px_10px_#ffffff] active:shadow-[inset_2px_2px_5px_#c9d1d9,inset_-2px_-2px_5px_#ffffff] transition flex justify-center items-center mx-4 w-12 h-12'
+              className="
+              bg-[#e4ebf5]
+              w-[90%] h-12
+              mx-3
+              p-3
+              rounded-xl
+              text-slate-500
+              hover:text-slate-800
+              shadow-[2px_2px_5px_#c9d1d9,-2px_-2px_1px_#ffffff]
+              active:shadow-[inset_1px_1px_3px_#c9d1d9,inset_-1px_-1px_3px_#ffffff]
+              transition
+              flex justify-center items-center
+            "
             >
               {isOpen ? <FiChevronLeft size={20} /> : <FiChevronRight size={20} />}
             </button>
