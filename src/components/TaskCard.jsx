@@ -88,7 +88,7 @@ function TaskCard({ task }) {
               </Button>
             }
 
-            <Button className='rounded-xl bg-white/50 text-red-500 shadow-sm border border-white/60 hover:text-red-600 w-10 h-10 flex justify-center items-center backdrop-blur-sm hover:bg-white/60' onClick={() => deleteTask(task.id)}>
+            <Button className='rounded-xl  shadow-sm border border-white/60 hover:text-red-600 w-12 h-12 flex justify-center items-center backdrop-blur-sm hover:bg-white/60' onClick={() => deleteTask(task.id)}>
               <BsFillTrash3Fill />
             </Button>
           </div>
