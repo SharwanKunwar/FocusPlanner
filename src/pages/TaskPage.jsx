@@ -4,17 +4,28 @@ import useTaskStore from '../data/taskStore';
 import { Empty, Badge } from 'antd';
 import Navbar from '../components/Navbar';
 
+const getLocalDateKey = (date = new Date()) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+};
+
+const getTaskDate = (task) => task.scheduledFor || task.createdAt?.slice(0, 10);
+
 function TaskPage() {
   const tasks = useTaskStore((state) => state.tasks);
   const [filterPriority, setFilterPriority] = useState(null); // { value, name, color }
   const [filterDate, setFilterDate] = useState(null); // "YYYY-MM-DD"
 
-  // Filter tasks by priority and date
+  // Show tasks due today by default. The date picker can be used to preview a future task.
+  const today = getLocalDateKey();
   const filteredTasks = tasks.filter(task => {
     let matchesPriority = filterPriority ? task.priority === filterPriority.value : true;
     let matchesDate = filterDate
-      ? task.createdAt.slice(0, 10) === filterDate
-      : true;
+      ? getTaskDate(task) === filterDate
+      : getTaskDate(task) === today;
     return matchesPriority && matchesDate;
   });
 

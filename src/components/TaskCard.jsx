@@ -27,6 +27,8 @@ function TaskCard({ task }) {
   const truncatedDescription = task.description.length > 150 ? task.description.slice(0, 150) + "..." : task.description;
   const AllTimeMax = task.description.length > 2000 ? task.description.slice(0, 2000) + "..." : task.description;
   const MaxDescription = task.description.length > 300 ? task.description.slice(0, 300) + "..." : task.description;
+  const isTomorrowTask = task.forWhen === "tomorrow";
+  const taskDayLabel = isTomorrowTask ? "Tomorrow's task" : "Today's task";
 
   const handleStartWork = () => {
     setIsModalOpen(true);
@@ -49,10 +51,10 @@ function TaskCard({ task }) {
   return (
     <>
       <motion.div>
-        <Card 
-          className='shadow-xl rounded-2xl border border-white/60!' 
+        <Card
+          className='shadow-xl rounded-2xl border border-white/60!'
           style={{ background: 'rgba(255, 255, 255, 0.4)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
-          bodyStyle={{ padding: '24px' }} 
+          bodyStyle={{ padding: '24px' }}
           hoverable
         >
           {/* Apple-style window controls */}
@@ -66,7 +68,8 @@ function TaskCard({ task }) {
           <small className='text-slate-400 font-medium'> CreatedAt: {formattedDate} </small>
           <p className='text-slate-500 mt-3 min-h-22.5'> {truncatedDescription} </p>
 
-          <section className='flex justify-start items-center gap-3 mt-4'>
+          <section className='flex justify-start items-center gap-3 mt-4 flex-wrap'>
+            <Tag color={isTomorrowTask ? "purple" : "green"} className='mt-1!'> {taskDayLabel}</Tag>
             <Tag color={task.status === "inprogress" ? "blue" : "orange"} className='mt-1!'> {task.status}</Tag>
             {/* <Tag color={task.status === "inprogress" ? "blue" : "orange"} className='mt-1!'> {task.priority}</Tag> */}
             {task.status == "completed" && (
@@ -150,7 +153,8 @@ function TaskCard({ task }) {
                   <h1 className='text-lg font-medium text-shadow-sm'>{task.title}</h1>
                   <p className='text-neutral-400'>CreateAt: {task.createdAt}</p>
                   <p className='mt-3 text-shadow-sm h-22.5'>{MaxDescription}</p>
-                  <div className='mt-5 flex justify-between items-center gap-5'>
+                  <div className='mt-5 flex justify-between items-center gap-5 flex-wrap'>
+                    <Tag color={isTomorrowTask ? "purple" : "green"}> {taskDayLabel}</Tag>
                     <Tag color={task.status === "inprogress" ? "blue" : "orange"}> {task.status}</Tag>
                     <section className='flex gap-3'>
                       <Button className='px-5! border-red-400/30! shadow! tracking-wide! border!' size='medium'>
@@ -207,7 +211,8 @@ function TaskCard({ task }) {
               <small className='text-neutral-400'> CreatedAt: {formattedDate} </small>
               <p className='text-gray-500 mt-2 text-shadow-sm min-h-22.5 mb-3'> {AllTimeMax} </p>
 
-              <section className='flex justify-start items-center gap-3 '>
+              <section className='flex justify-start items-center gap-3 flex-wrap'>
+                <Tag color={isTomorrowTask ? "purple" : "green"} className='mt-1!'> {taskDayLabel}</Tag>
                 <Tag color={task.status === "inprogress" ? "blue" : "orange"} className='mt-1!'> {task.status}</Tag>
                 {task.status == "completed" && (
                   <Tag color={task.status === "inprogress" ? "blue" : "orange"} className='mt-1!'> <p>Time Spent: {convertMillisecondsToHMS(task.duration)}</p> </Tag>

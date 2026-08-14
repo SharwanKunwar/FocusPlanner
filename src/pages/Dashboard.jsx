@@ -39,6 +39,7 @@ function Dashboard() {
         title: newTaskInput,
         description: "",
         priority: "normal",
+        forWhen: "today",
       });
       setNewTaskInput("");
     }

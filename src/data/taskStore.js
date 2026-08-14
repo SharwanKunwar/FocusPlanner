@@ -1,14 +1,28 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+const toLocalDateKey = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
 const useTaskStore = create(
   persist(
     (set) => ({
       tasks: [],
 
-      addTask: ({ title, description, priority }) =>
+      addTask: ({ title, description, priority, forWhen = "today" }) =>
         set((state) => {
           const now = new Date();
+          const scheduledDate = new Date(now);
+          const normalizedForWhen = forWhen === "tomorrow" ? "tomorrow" : "today";
+
+          if (normalizedForWhen === "tomorrow") {
+            scheduledDate.setDate(scheduledDate.getDate() + 1);
+          }
 
           const newTask = {
             id: Date.now(),
@@ -16,6 +30,9 @@ const useTaskStore = create(
             description,
             status: "pending",
             createdAt: now.toISOString(),
+            // Keep the intended task day separate from its creation timestamp.
+            forWhen: normalizedForWhen,
+            scheduledFor: toLocalDateKey(scheduledDate),
             createdYear: now.getFullYear(),
             priority,
             completedAt: null,
@@ -72,6 +89,20 @@ const useTaskStore = create(
     {
       name: "task-storage",
       getStorage: () => localStorage,
+      version: 1,
+      migrate: (persistedState) => {
+        if (!persistedState?.tasks) return persistedState;
+
+        return {
+          ...persistedState,
+          tasks: persistedState.tasks.map((task) => ({
+            ...task,
+            // Existing tasks were always created for the current day.
+            forWhen: task.forWhen || "today",
+            scheduledFor: task.scheduledFor || task.createdAt?.slice(0, 10),
+          })),
+        };
+      },
     }
   )
 );
